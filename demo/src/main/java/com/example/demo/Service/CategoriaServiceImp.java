@@ -10,11 +10,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class CategoriaServiceImp {
+public class CategoriaServiceImp4 {
 
     private final CategoriaRepository categoriaRepository;
 
-    public CategoriaServiceImp(CategoriaRepository categoriaRepository) {
+    public CategoriaServiceImp4(CategoriaRepository categoriaRepository) {
 
         this.categoriaRepository = categoriaRepository;
     }
@@ -37,6 +37,8 @@ public class CategoriaServiceImp {
      *JPA: findAll() -> SQL: SELECT * FROM categorias
      *@return lista de categorías
      */
+
+    @Override
     public List<Categoria> findAll()
     {
         return categoriaRepository.findAll();
