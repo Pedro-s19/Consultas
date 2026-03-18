@@ -16,7 +16,7 @@ public class Curso {
     private String nombre;
 
     @Column(nullable = false)
-    private int creditos;
+    private Integer creditos;
 
     @ManyToMany(mappedBy = "cursos")
     @JsonIgnoreProperties("cursos")
@@ -25,7 +25,7 @@ public class Curso {
     public Curso() {
     }
 
-    public Curso(Long id, String nombre, int creditos, Set<Estudiante> estudiantes) {
+    public Curso(Long id, String nombre, Integer creditos, Set<Estudiante> estudiantes) {
         this.id = id;
         this.nombre = nombre;
         this.creditos = creditos;
@@ -48,11 +48,11 @@ public class Curso {
         this.nombre = nombre;
     }
 
-    public int getCreditos() {
+    public Integer getCreditos() {
         return creditos;
     }
 
-    public void setCreditos(int creditos) {
+    public void setCreditos(Integer creditos) {
         this.creditos = creditos;
     }
 

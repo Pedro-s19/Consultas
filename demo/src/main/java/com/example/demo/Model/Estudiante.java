@@ -26,7 +26,7 @@ public class Estudiante {
             joinColumns = @JoinColumn(name = "estudiantes_id"),
             inverseJoinColumns = @JoinColumn(name = "curso_id")
     )
-    @JsonProperty("estudiantes")
+    @JsonProperty("cursos")
     private Set<Curso> cursos = new HashSet<>();
 
     public Estudiante() {

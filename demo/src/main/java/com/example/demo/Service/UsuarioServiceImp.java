@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UsuarioServiceImp {
+public class UsuarioServiceImp implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
@@ -24,6 +24,8 @@ public class UsuarioServiceImp {
      * Si el ID es nulo -> SQL: INSERT INTO usuarios (nombre, corre) VALUES (?, ?)
      * Si el ID existe -> SQL: UPDATE usuarios SET nombre = ?, corre = ? WHERE id = ?
      */
+
+    @Override
     public Usuario save(Usuario usuario)
     {
         return usuarioRepository.save(usuario);
@@ -35,6 +37,7 @@ public class UsuarioServiceImp {
      * JPA: usuarioRepository.findAll()
      * SQL: SELECT * FROM usuarios
      */
+    @Override
     public List<Usuario> findAll()
     {
         return usuarioRepository.findAll();
@@ -45,6 +48,7 @@ public class UsuarioServiceImp {
      * JPA: usuarioRepository.findById(id)
      * SQL: SELECT * FROM usuarios WHERE id = ?
      */
+    @Override
     public Optional<Usuario> findById(Long id)
     {
         return usuarioRepository.findById(id);
@@ -57,6 +61,7 @@ public class UsuarioServiceImp {
      * (Como tiene cascade = ALL en la relación con PerfilUsuario, también se eliminará el perfil asociado,
      *  generando un DELETE en perfiles_usuario.)
      */
+    @Override
     public void deleteById(Long id)
     {
         usuarioRepository.deleteById(id);
@@ -67,6 +72,7 @@ public class UsuarioServiceImp {
      * JPA: usuarioRepository.existsById(id)
      * SQL: SELECT COUNT(*) FROM usuarios WHERE id = ?
      */
+    @Override
     public boolean existsById(Long id)
     {
         return usuarioRepository.existsById(id);

@@ -1,7 +1,9 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.PerfilUsuario;
+import com.example.demo.Model.Usuario;
 import com.example.demo.Service.PerfilUsuarioServiceImp;
+import com.example.demo.Service.UsuarioServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,20 +16,22 @@ public class PerfilUsuarioController {
 
     private final PerfilUsuarioServiceImp perfilUsuarioService;
 
-    public PerfilUsuarioController(PerfilUsuarioServiceImp perfilUsuarioService) {
+    public PerfilUsuarioController(PerfilUsuarioServiceImp perfilUsuarioService, UsuarioServiceImp usuarioService) {
         this.perfilUsuarioService = perfilUsuarioService;
+
     }
 
     /*
      * Crea un nuevo perfil de usuario.
      * Llama a PerfilUsuarioService.save() que ejecuta un INSERT en SQL.
      */
-    @PostMapping
-    public ResponseEntity<PerfilUsuario> create(@RequestBody PerfilUsuario perfilUsuario)
+    @PostMapping("/guardarPerfildeUsuario/{id}")
+    public ResponseEntity<PerfilUsuario> saveUsuario (@PathVariable Long id, @RequestBody PerfilUsuario perfilUsuario)
     {
-        PerfilUsuario saved =  perfilUsuarioService.save(perfilUsuario);
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+         PerfilUsuario guardarPerfildeUsuario = perfilUsuarioService.saveUsuario(id, perfilUsuario);
+         return ResponseEntity.status(HttpStatus.CREATED).body(guardarPerfildeUsuario);
     }
+
 
     /*
      * Obtiene todos los perfiles.
@@ -45,7 +49,7 @@ public class PerfilUsuarioController {
     @GetMapping("{id}")
     public ResponseEntity<PerfilUsuario> getById(@PathVariable Long id)
     {
-        return perfilUsuarioService.FindById(id)
+        return perfilUsuarioService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -55,16 +59,17 @@ public class PerfilUsuarioController {
      * Verifica existencia (SELECT COUNT), asigna ID y llama a save() que ejecuta un UPDATE.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<PerfilUsuario> update(@PathVariable Long id, @RequestBody PerfilUsuario perfilUsuario)
-    {
-        if(!perfilUsuarioService.existsById(id))
-        {
-            return ResponseEntity.notFound().build();
-        }
-        perfilUsuario.setId(id);
-        PerfilUsuario updated = perfilUsuarioService.save(perfilUsuario);
-        return ResponseEntity.ok(updated);
-
+    public ResponseEntity<PerfilUsuario> update(@PathVariable Long id, @RequestBody PerfilUsuario perfilUsuario) {
+        return perfilUsuarioService.findById(id)
+                .map(perfilExistente -> {
+                    // Actualizar solo los campos que se permiten modificar
+                    perfilExistente.setDocumento(perfilUsuario.getDocumento());
+                    perfilExistente.setTelefono(perfilUsuario.getTelefono());
+                    // No modificamos el usuario
+                    PerfilUsuario updated = perfilUsuarioService.save(perfilExistente);
+                    return ResponseEntity.ok(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     /*

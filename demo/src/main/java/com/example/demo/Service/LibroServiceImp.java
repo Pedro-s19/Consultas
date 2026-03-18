@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class LibroServiceImp {
+public class LibroServiceImp implements  LibroService {
 
     private final LibroRepository libroRepository;
 
@@ -26,6 +26,7 @@ public class LibroServiceImp {
      * @param libro objeto a guardar
      * @return libro guardado
      */
+    @Override
     public Libro save (Libro libro)
     {
         return libroRepository.save(libro);
@@ -38,6 +39,7 @@ public class LibroServiceImp {
      * para traer la categoría de cada libro.
      * @return lista de libros
      */
+    @Override
     public List<Libro> findAll()
     {
         return libroRepository.findAll();
@@ -50,6 +52,7 @@ public class LibroServiceImp {
      * @param id identificador
      * @return Optional con el libro
      */
+    @Override
     public Optional<Libro>findById(Long id)
     {
         return libroRepository.findById(id);
@@ -60,6 +63,7 @@ public class LibroServiceImp {
      * JPA: deleteById(id) -> SQL: DELETE FROM libros WHERE id = ?
      * @param id identificador
      */
+    @Override
     public void deleteById(Long id)
     {
         libroRepository.deleteById(id);
@@ -70,6 +74,7 @@ public class LibroServiceImp {
      * @param id identificador
      * @return true si existe
      */
+    @Override
     public boolean existsById(Long id)
     {
         return libroRepository.existsById(id);

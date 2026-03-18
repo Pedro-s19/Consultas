@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class EstudianteServiceImp {
+public class EstudianteServiceImp implements EstudianteService {
 
     private final EstudianteRepository estudianteRepository;
 
@@ -24,6 +24,7 @@ public class EstudianteServiceImp {
      * Si el ID existe -> SQL: UPDATE estudiantes SET nombre = ?, correo = ? WHERE id = ?
      * Si además se incluyen cursos en la relación ManyToMany, se generan INSERTS en la tabla intermedia.
      */
+    @Override
     public Estudiante save (Estudiante estudiante)
     {
         return estudianteRepository.save(estudiante);
@@ -34,6 +35,7 @@ public class EstudianteServiceImp {
      * JPA: estudianteRepository.findAll()
      * SQL: SELECT * FROM estudiantes
      */
+    @Override
     public List<Estudiante> findAll()
     {
         return estudianteRepository.findAll();
@@ -44,7 +46,8 @@ public class EstudianteServiceImp {
      * JPA: estudianteRepository.findById(id)
      * SQL: SELECT * FROM estudiantes WHERE id = ?
      */
-    public Optional<Estudiante> FindById(Long id)
+    @Override
+    public Optional<Estudiante> findById(Long id)
     {
         return estudianteRepository.findById(id);
     }
@@ -56,6 +59,7 @@ public class EstudianteServiceImp {
      * (Si hay registros en la tabla intermedia, se eliminan automáticamente si la BD tiene ON DELETE CASCADE,
      *  de lo contrario JPA los elimina uno a uno.)
      */
+    @Override
     public void deleteById(Long id)
     {
         estudianteRepository.deleteById(id);
@@ -66,6 +70,7 @@ public class EstudianteServiceImp {
      * JPA: estudianteRepository.existsById(id)
      * SQL: SELECT COUNT(*) FROM estudiantes WHERE id = ?
      */
+    @Override
     public boolean existsById(Long id)
     {
         return estudianteRepository.existsById(id);

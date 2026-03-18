@@ -10,11 +10,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class CategoriaServiceImp4 {
+public class CategoriaServiceImp implements CategoriaService {
 
     private final CategoriaRepository categoriaRepository;
 
-    public CategoriaServiceImp4(CategoriaRepository categoriaRepository) {
+    public CategoriaServiceImp(CategoriaRepository categoriaRepository) {
 
         this.categoriaRepository = categoriaRepository;
     }
@@ -49,6 +49,7 @@ public class CategoriaServiceImp4 {
      * @param id identificador
      * @return Optional con la categoría si existe
      */
+    @Override
     public Optional<Categoria> findById(Long id)
     {
         return categoriaRepository.findById(id);
@@ -58,6 +59,7 @@ public class CategoriaServiceImp4 {
      * JPA: deleteById(id) -> SQL: DELETE FROM categorias WHERE id = ?
      * @param id identificador
      */
+    @Override
     public void deleteById(Long id)
     {
         categoriaRepository.deleteById(id);
@@ -68,6 +70,7 @@ public class CategoriaServiceImp4 {
      * @param id identificador
      * @return true si existe
      */
+    @Override
     public boolean existsById(Long id)
     {
         return categoriaRepository.existsById(id);

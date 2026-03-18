@@ -20,8 +20,11 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(Long usuarioId) {
+    }
+
     public Usuario(Long id, String nombre, String corre, PerfilUsuario perfil) {
-        id = id;
+        this.id = id;
         this.nombre = nombre;
         this.corre = corre;
         this.perfil = perfil;
@@ -32,7 +35,7 @@ public class Usuario {
     }
 
     public void setId(Long id) {
-        id = id;
+        this.id = id;
     }
 
     public String getNombre() {

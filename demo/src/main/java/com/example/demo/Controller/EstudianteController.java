@@ -48,7 +48,7 @@ public class EstudianteController {
     @GetMapping("{id}")
     public ResponseEntity<Estudiante> getById(@PathVariable Long id)
     {
-        return estudianteService.FindById(id)
+        return estudianteService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

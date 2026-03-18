@@ -12,6 +12,4 @@ public interface CategoriaService {
     Optional<Categoria> findById(Long id);
     void deleteById(Long id);
     boolean existsById(Long id);
-
-
 }

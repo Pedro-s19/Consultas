@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class CursoServiceImp {
+public class CursoServiceImp implements CursoService {
 
     private final CursoRepository cursoRepository;
 
@@ -25,6 +25,7 @@ public class CursoServiceImp {
      * Si el ID es nulo -> SQL: INSERT INTO cursos (nombre, creditos) VALUES (?, ?)
      * Si el ID existe  -> SQL: UPDATE cursos SET nombre = ?, creditos = ? WHERE id =
      */
+    @Override
     public Curso save (Curso curso)
     {
         return cursoRepository.save(curso);
@@ -35,6 +36,7 @@ public class CursoServiceImp {
      * JPA: cursoRepository.findAll()
      * SQL: SELECT * FROM cursos
      */
+    @Override
     public List<Curso> findAll()
     {
         return cursoRepository.findAll();
@@ -45,7 +47,8 @@ public class CursoServiceImp {
      * JPA: cursoRepository.findById(id)
      * SQL: SELECT * FROM cursos WHERE id = ?
      */
-    public Optional<Curso> FindById(Long id)
+    @Override
+    public Optional<Curso> findById(Long id)
     {
         return cursoRepository.findById(id);
     }
@@ -55,6 +58,7 @@ public class CursoServiceImp {
      * JPA: cursoRepository.deleteById(id)
      * SQL: DELETE FROM cursos WHERE id = ?
      */
+    @Override
     public void deleteById(Long id)
     {
         cursoRepository.deleteById(id);
@@ -65,6 +69,7 @@ public class CursoServiceImp {
      * JPA: cursoRepository.existsById(id)
      * SQL: SELECT COUNT(*) FROM cursos WHERE id = ?
      */
+    @Override
     public boolean existsById(Long id)
     {
         return cursoRepository.existsById(id);
